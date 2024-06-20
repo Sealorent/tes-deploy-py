@@ -13,8 +13,12 @@ RUN pip install pipenv
 # Copy the Pipfile and Pipfile.lock into the container at /app
 COPY Pipfile Pipfile.lock /app/
 
+# Add debugging information
+RUN echo "Pipfile content:"
+RUN cat Pipfile
+
 # Install dependencies
-RUN pipenv install --deploy --ignore-pipfile
+RUN pipenv install --deploy --ignore-pipfile || { echo "Pipenv install failed"; exit 1; }
 
 # Copy the rest of the application code into the container at /app
 COPY . /app
