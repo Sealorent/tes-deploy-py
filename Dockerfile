@@ -18,7 +18,7 @@ RUN echo "Pipfile content:"
 RUN cat Pipfile
 
 # Install dependencies
-RUN pipenv install --deploy --ignore-pipfile || { echo "Pipenv install failed"; exit 1; }
+# RUN pipenv install --deploy --ignore-pipfile || { echo "Pipenv install failed"; exit 1; }
 
 # Copy the rest of the application code into the container at /app
 COPY . /app
