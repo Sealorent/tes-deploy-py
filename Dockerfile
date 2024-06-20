@@ -8,12 +8,17 @@ WORKDIR /app
 RUN apt-get update \
     && apt-get install -y \
         cmake \
+        build-essential \
+        libopenblas-dev \
+        liblapack-dev \
+        libjpeg-dev \
+        zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
+# Install dlib and other needed packages
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose port 5000 for the Flask application
