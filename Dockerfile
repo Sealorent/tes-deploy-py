@@ -18,10 +18,18 @@ RUN apt-get update \
         libgstreamer1.0-dev \
         libgstreamer-plugins-base1.0-dev \
         libgtk-3-dev \
+        v4l-utils \
+        libavcodec-dev \
+        libavformat-dev \
+        libswscale-dev \
+        libtbb2 \
     && rm -rf /var/lib/apt/lists/*
 
-# Grant access to all devices (for demonstration purposes; not recommended in production)
-RUN chmod a+rw /dev
+# Install OpenCV
+RUN pip install opencv-python-headless
+
+# Grant access to specific video device
+RUN usermod -a -G video root
 
 # Copy the current directory contents into the container at /app
 COPY . /app
