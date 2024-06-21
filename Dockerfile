@@ -28,6 +28,7 @@ RUN apt-get update \
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && \
     adduser appuser video && \
     chown -R appuser /app
+    
 USER appuser
 
 # Copy the current directory contents into the container at /app
