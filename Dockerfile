@@ -22,7 +22,7 @@ RUN apt-get update \
         libavcodec-dev \
         libavformat-dev \
         libswscale-dev \
-        libtbbmalloc2 \
+        libtbb2 \
         tini \
     && rm -rf /var/lib/apt/lists/*
 
@@ -44,8 +44,8 @@ RUN pip install --no-cache-dir -r requirements.txt \
 # Expose port 5000 for the Flask application
 EXPOSE 5000
 
-# Ensure tini is PID 1
-ENTRYPOINT ["tini", "--"]
+# Use tini as the init process
+ENTRYPOINT ["tini", "-g", "--"]
 
 # Command to run the Flask application with Gunicorn
 CMD ["gunicorn", "api.index:app"]
