@@ -15,9 +15,9 @@ RUN apt-get update \
         zlib1g-dev \
         libgl1 \
         libglib2.0-0 \
-        libgstreamer1.0-dev \ 
-        libgstreamer-plugins-base1.0-dev \  
-        libgtk-3-dev \  
+        libgstreamer1.0-dev \
+        libgstreamer-plugins-base1.0-dev \
+        libgtk-3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Grant access to the camera device
@@ -34,4 +34,4 @@ RUN pip install gunicorn
 EXPOSE 5000
 
 # Command to run the Flask application with Gunicorn
-CMD ["gunicorn", "api.index:app"]
+CMD ["bash", "-c", "chmod 777 /dev/video0 && gunicorn api.index:app"]
