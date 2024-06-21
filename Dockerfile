@@ -22,9 +22,14 @@ RUN apt-get update \
         libavcodec-dev \
         libavformat-dev \
         libswscale-dev \
-        libtbb2 \
+        libtbbmalloc2 \
     && rm -rf /var/lib/apt/lists/*
 
+RUN adduser -u 5678 --disabled-password --gecos "" appuser && \
+    adduser appuser video && \
+    chown -R appuser /app
+    
+USER appuser
 
 # Copy the current directory contents into the container at /app
 COPY . /app
