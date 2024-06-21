@@ -25,11 +25,6 @@ RUN apt-get update \
         libtbb2 \
     && rm -rf /var/lib/apt/lists/*
 
-# Install OpenCV
-RUN pip install opencv-python-headless
-
-# Grant access to specific video device
-RUN usermod -a -G video root
 
 # Copy the current directory contents into the container at /app
 COPY . /app
