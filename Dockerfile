@@ -20,8 +20,8 @@ RUN apt-get update \
         libgtk-3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Grant access to the camera device
-RUN usermod -a -G video root
+# Grant access to all devices (for demonstration purposes; not recommended in production)
+RUN chmod a+rw /dev
 
 # Copy the current directory contents into the container at /app
 COPY . /app
@@ -31,6 +31,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install gunicorn
 
 # Expose port 5000 for the Flask application
+EXPOSE 5000
 
 # Command to run the Flask application with Gunicorn
-CMD ["bash", "-c", "chmod 777 /dev/video0 && gunicorn api.index:app"]
+CMD ["gunicorn", "api.index:app"]
