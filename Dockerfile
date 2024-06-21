@@ -22,7 +22,7 @@ RUN apt-get update \
         libavcodec-dev \
         libavformat-dev \
         libswscale-dev \
-        libtbb2 \
+        libtbbmalloc2 \
         tini \
     && rm -rf /var/lib/apt/lists/*
 
