@@ -44,8 +44,6 @@ RUN pip install --no-cache-dir -r requirements.txt \
 # Expose port 5000 for the Flask application
 EXPOSE 5000
 
-# Use tini as the init process
-ENTRYPOINT ["tini", "-g", "--"]
 
 # Command to run the Flask application with Gunicorn
 CMD ["gunicorn", "api.index:app"]
