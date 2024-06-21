@@ -13,18 +13,20 @@ RUN apt-get update \
         liblapack-dev \
         libjpeg-dev \
         zlib1g-dev \
+        libgl1 \
+        libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install dlib and other needed packages
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose port 5000 for the Flask application
 EXPOSE 5000
 
-# Define environment variable
+# Define environment variables
 ENV FLASK_APP=api/index.py
 ENV FLASK_RUN_HOST=0.0.0.0
 
