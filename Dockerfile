@@ -22,13 +22,10 @@ COPY . /app
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install gunicorn
 
 # Expose port 5000 for the Flask application
 EXPOSE 5000
 
-# Define environment variables
-ENV FLASK_APP=api/index.py
-ENV FLASK_RUN_HOST=0.0.0.0
-
-# Command to run the Flask application
-CMD ["flask", "run"]
+# Command to run the Flask application with Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "api.index:app"]
