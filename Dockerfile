@@ -17,15 +17,14 @@ RUN apt-get update \
         libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Poetry
+RUN pip install poetry
+
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install gunicorn
+# Install Python dependencies with Poetry
+RUN poetry install --no-dev
 
-# Expose port 5000 for the Flask application
-EXPOSE 5000
-
-# Command to run the Flask application with Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "api.index:app"]
+# Command to run the Flask application with Gunicorn using Poetry
+CMD ["poetry", "run", "gunicorn", "api.index:app"]
