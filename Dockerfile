@@ -23,23 +23,29 @@ RUN apt-get update \
         libavformat-dev \
         libswscale-dev \
         libtbbmalloc2 \
+        tini \
     && rm -rf /var/lib/apt/lists/*
 
+# Create a non-root user
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && \
     adduser appuser video && \
     chown -R appuser /app
-    
+
+# Switch to the non-root user
 USER appuser
 
 # Copy the current directory contents into the container at /app
 COPY . /app
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install gunicorn
+RUN pip install --no-cache-dir -r requirements.txt \
+    && pip install gunicorn
 
 # Expose port 5000 for the Flask application
 EXPOSE 5000
+
+# Use tini as the init process
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 # Command to run the Flask application with Gunicorn
 CMD ["gunicorn", "api.index:app"]
