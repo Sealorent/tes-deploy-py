@@ -15,6 +15,9 @@ RUN apt-get update \
         zlib1g-dev \
         libgl1 \
         libglib2.0-0 \
+        libgstreamer1.0-dev \
+        libgstreamer-plugins-base1.0-dev \
+        libgtk-3-dev \ 
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the current directory contents into the container at /app
@@ -28,4 +31,6 @@ RUN pip install gunicorn
 EXPOSE 5000
 
 # Command to run the Flask application with Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "api.index:app"]
+CMD ["gunicorn", "api.index:app"]
+
+# Add additional instructions if necessary for camera access
