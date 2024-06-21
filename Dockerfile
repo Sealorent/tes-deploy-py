@@ -28,4 +28,4 @@ RUN pip install gunicorn
 EXPOSE 5000
 
 # Command to run the Flask application with Gunicorn
-CMD ["gunicorn", "api.index:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "api.index:app"]
